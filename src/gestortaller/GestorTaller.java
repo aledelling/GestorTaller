@@ -19,6 +19,8 @@ public class GestorTaller {
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) {
+        mostrarBienvenida();
+        inicializarDatosPredefinidos();
         cargarDesdeArchivo();
         int opcion;
 
@@ -42,6 +44,17 @@ public class GestorTaller {
         } while (opcion != 0);
 
         entrada.close();
+    }
+
+    private static void mostrarBienvenida() {
+        System.out.println("╔════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                🏍️  GESTOR DE TALLER DE MOTOCICLETAS  🏍️          ║");
+        System.out.println("║                          Versión 1.0                          ║");
+        System.out.println("╠════════════════════════════════════════════════════════════════╣");
+        System.out.println("║  ✅ Sistema inicializado con datos de ejemplo                  ║");
+        System.out.println("║  📋 5 clientes, 5 motocicletas, 5 servicios, 5 técnicos      ║");
+        System.out.println("║  💾 Persistencia automática en archivo                        ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════╝\n");
     }
 
     private static void mostrarMenu() {
@@ -197,9 +210,8 @@ public class GestorTaller {
     private static Servicio crearNuevoServicio() {
         System.out.print("Descripción: ");
         String descripcion = entrada.nextLine();
-        double precio = Double.parseDouble(entrada.nextLine());
         System.out.print("Precio: ");
-        precio = Double.parseDouble(entrada.nextLine());
+        double precio = Double.parseDouble(entrada.nextLine());
         int duracion = leerEntero("Duración (minutos): ");
         System.out.print("Tipo: ");
         String tipo = entrada.nextLine();
@@ -431,14 +443,20 @@ public class GestorTaller {
                     String colorMoto = datos[i++];
                     String placaMoto = datos[i++];
                     int cilindrajeMoto = Integer.parseInt(datos[i++]);
-                    Motocicleta moto = new Motocicleta(modeloMoto, marcaMoto, colorMoto, placaMoto, cilindrajeMoto);
+                    Motocicleta moto = buscarMotocicletaPorModelo(modeloMoto);
+                    if (moto == null) {
+                        moto = new Motocicleta(modeloMoto, marcaMoto, colorMoto, placaMoto, cilindrajeMoto);
+                    }
                     // Servicio
                     String descServicio = datos[i++];
                     double precioServicio = Double.parseDouble(datos[i++]);
                     int duracionServicio = Integer.parseInt(datos[i++]);
                     String tipoServicio = datos[i++];
                     String garantiaServicio = datos[i++];
-                    Servicio servicio = new Servicio(descServicio, precioServicio, duracionServicio, tipoServicio, garantiaServicio);
+                    Servicio servicio = buscarServicioPorDescripcion(descServicio);
+                    if (servicio == null) {
+                        servicio = new Servicio(descServicio, precioServicio, duracionServicio, tipoServicio, garantiaServicio);
+                    }
                     // Fechas
                     LocalDate fechaEntrada = LocalDate.parse(datos[i++], FORMATO_FECHA);
                     LocalDate fechaSalida = LocalDate.parse(datos[i++], FORMATO_FECHA);
@@ -448,7 +466,10 @@ public class GestorTaller {
                     String telefonoTecnico = datos[i++];
                     String especialidadTecnico = datos[i++];
                     int experienciaTecnico = Integer.parseInt(datos[i++]);
-                    Tecnico tecnico = new Tecnico(nombreTecnico, cedulaTecnico, telefonoTecnico, especialidadTecnico, experienciaTecnico);
+                    Tecnico tecnico = buscarTecnicoPorNombre(nombreTecnico);
+                    if (tecnico == null) {
+                        tecnico = new Tecnico(nombreTecnico, cedulaTecnico, telefonoTecnico, especialidadTecnico, experienciaTecnico);
+                    }
                     // Observaciones y completado
                     String observaciones = datos[i++];
                     boolean completado = Boolean.parseBoolean(datos[i++]);
@@ -458,7 +479,10 @@ public class GestorTaller {
                     String direccionCliente = datos[i++];
                     String emailCliente = datos[i++];
                     String documentoCliente = datos[i++];
-                    Cliente cliente = new Cliente(nombreCliente, telefonoCliente, direccionCliente, emailCliente, documentoCliente);
+                    Cliente cliente = buscarClientePorNombre(nombreCliente);
+                    if (cliente == null) {
+                        cliente = new Cliente(nombreCliente, telefonoCliente, direccionCliente, emailCliente, documentoCliente);
+                    }
 
                     biblioteca.add(new Ordenes(numeroOrden, moto, servicio, fechaEntrada, fechaSalida, tecnico, observaciones, completado, cliente));
                 }
@@ -507,6 +531,41 @@ public class GestorTaller {
         if (nombre.equals(Cliente.CLIENTE5.getNombre())) return Cliente.CLIENTE5;
         for (Cliente c : clientesNuevos) if (nombre.equals(c.getNombre())) return c;
         return null;
+    }
+
+    private static void inicializarDatosPredefinidos() {
+        // Agregar datos predefinidos a las listas si están vacías
+        if (clientesNuevos.isEmpty()) {
+            clientesNuevos.add(Cliente.CLIENTE1);
+            clientesNuevos.add(Cliente.CLIENTE2);
+            clientesNuevos.add(Cliente.CLIENTE3);
+            clientesNuevos.add(Cliente.CLIENTE4);
+            clientesNuevos.add(Cliente.CLIENTE5);
+        }
+        
+        if (motocicletasNuevas.isEmpty()) {
+            motocicletasNuevas.add(Motocicleta.MOTO1);
+            motocicletasNuevas.add(Motocicleta.MOTO2);
+            motocicletasNuevas.add(Motocicleta.MOTO3);
+            motocicletasNuevas.add(Motocicleta.MOTO4);
+            motocicletasNuevas.add(Motocicleta.MOTO5);
+        }
+        
+        if (serviciosNuevos.isEmpty()) {
+            serviciosNuevos.add(Servicio.SERVICIO1);
+            serviciosNuevos.add(Servicio.SERVICIO2);
+            serviciosNuevos.add(Servicio.SERVICIO3);
+            serviciosNuevos.add(Servicio.SERVICIO4);
+            serviciosNuevos.add(Servicio.SERVICIO5);
+        }
+        
+        if (tecnicosNuevos.isEmpty()) {
+            tecnicosNuevos.add(Tecnico.TECNICO1);
+            tecnicosNuevos.add(Tecnico.TECNICO2);
+            tecnicosNuevos.add(Tecnico.TECNICO3);
+            tecnicosNuevos.add(Tecnico.TECNICO4);
+            tecnicosNuevos.add(Tecnico.TECNICO5);
+        }
     }
 
     // Métodos auxiliares

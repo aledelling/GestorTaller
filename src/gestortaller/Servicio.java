@@ -28,4 +28,11 @@ public class Servicio {
     public void setDuracion(int duracion) { this.duracion = duracion; }
     public void setTipo(String tipo) { this.tipo = tipo; }
     public void setGarantia(String garantia) { this.garantia = garantia; }
+
+    // Constantes predefinidas
+    public static final Servicio SERVICIO1 = new Servicio("Cambio de aceite", 45000.0, 30, "Mantenimiento", "15 días");
+    public static final Servicio SERVICIO2 = new Servicio("Revisión de frenos", 85000.0, 60, "Seguridad", "30 días");
+    public static final Servicio SERVICIO3 = new Servicio("Ajuste de cadena", 25000.0, 20, "Mantenimiento", "7 días");
+    public static final Servicio SERVICIO4 = new Servicio("Cambio de llantas", 180000.0, 45, "Repuesto", "90 días");
+    public static final Servicio SERVICIO5 = new Servicio("Lavado completo", 15000.0, 40, "Estética", "No aplica");
 } 

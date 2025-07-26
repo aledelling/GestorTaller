@@ -1,40 +1,96 @@
-# 🏍️ Gestor de Taller de Motocicletas
+# 🏍️ Gestor de Taller de Motocicletas - POO Completo
 
-## Descripción
-Sistema de gestión de órdenes de trabajo para talleres de reparación de motocicletas. Permite administrar clientes, técnicos, motocicletas, servicios y órdenes de trabajo de manera integral.
+## 📋 Descripción
+Sistema avanzado de gestión de órdenes de trabajo para talleres de reparación de motocicletas. **Implementa los conceptos fundamentales de POO**: Herencia, Polimorfismo, Instanciación y Patrones de Diseño de manera completa y funcional.
 
-## ✅ Correcciones Aplicadas
+## 🎯 Conceptos POO Implementados
 
-### 🚨 Errores Críticos Corregidos
-1. **Constantes Faltantes**: Se agregaron 40 constantes estáticas que faltaban:
-   - 5 clientes predefinidos (`Cliente.CLIENTE1` - `Cliente.CLIENTE5`)
-   - 5 motocicletas predefinidas (`Motocicleta.MOTO1` - `Motocicleta.MOTO5`)
-   - 5 servicios predefinidos (`Servicio.SERVICIO1` - `Servicio.SERVICIO5`)
-   - 5 técnicos predefinidos (`Tecnico.TECNICO1` - `Tecnico.TECNICO5`)
+### 🏗️ **HERENCIA Y POLIMORFISMO**
+- ✅ **3 Jerarquías Completas** con clases abstractas
+- ✅ **Polimorfismo Dinámico** en tiempo de ejecución
+- ✅ **Métodos Abstractos** y sobrescritura (@Override)
+- ✅ **Casting e instanceof** seguros
 
-2. **Bug en Entrada de Datos**: Corregido el método `crearNuevoServicio()` que leía el precio dos veces.
+### 🏭 **INSTANCIACIÓN AVANZADA**
+- ✅ **Factory Pattern** - Creación centralizada y validada
+- ✅ **Builder Pattern** - Construcción fluida de objetos complejos
+- ✅ **Singleton Pattern** - Instancia única thread-safe
+- ✅ **Object Pool Pattern** - Reutilización eficiente de objetos
 
-3. **Inicialización de Datos**: Se agregó inicialización automática de datos predefinidos al iniciar el sistema.
+## 🏗️ Arquitectura del Sistema
 
-### 🚀 Mejoras Implementadas
-1. **Pantalla de Bienvenida**: Mensaje visual atractivo al iniciar la aplicación
-2. **Datos de Ejemplo**: 25 registros predefinidos listos para usar
-3. **Mejor Gestión de Persistencia**: Integración mejorada entre datos predefinidos y archivo
-4. **Compilación Verificada**: El proyecto ahora compila sin errores
+### **Jerarquías de Herencia**
+
+#### **👥 Jerarquía de Personas**
+```
+Persona (abstracta)
+├── Cliente (direccion, email)
+└── Tecnico (especialidad, experiencia, tarifas)
+```
+
+#### **🏍️ Jerarquía de Vehículos**
+```
+Vehiculo (abstracta)
+└── Motocicleta (cilindraje, tipoMotor, esDeportiva)
+```
+
+#### **🔧 Jerarquía de Servicios**
+```
+ServicioBase (abstracta)
+├── Servicio (tipo, requiereRepuestos)
+└── ServicioMantenimiento (kilometraje, preventivo)
+```
+
+### **Patrones de Instanciación**
+
+#### **🏭 Factory Pattern**
+- `PersonaFactory.java` - Creación centralizada con validaciones
+- Creación en lotes y generación automática
+- Contadores y estadísticas de creación
+
+#### **🔧 Builder Pattern**
+- `MotocicletaBuilder.java` - Construcción fluida paso a paso
+- Configuraciones predefinidas (urbana, deportiva, touring)
+- Validaciones de negocio integradas
+
+#### **🎯 Singleton Pattern**
+- `ConfiguracionSingleton.java` - Configuración global única
+- Thread-safe con Double-Checked Locking
+- Propiedades tipadas y validación de integridad
+
+#### **🏊 Object Pool Pattern**
+- `OrdenesPool.java` - Reutilización eficiente de objetos
+- Thread-safe con estadísticas en tiempo real
+- 100% eficiencia de reutilización demostrada
 
 ## 📦 Estructura del Proyecto
 ```
 /workspace/
-├── build.xml                 # Configuración de Ant
-├── ordenes.txt              # Archivo de persistencia
-├── README.md                # Este archivo
+├── build.xml                      # Configuración de Ant
+├── ordenes.txt                   # Archivo de persistencia
+├── README.md                     # Este archivo
+├── HERENCIA_POO.md              # Documentación de Herencia
+├── INSTANCIACION_POO.md         # Documentación de Instanciación
 └── src/gestortaller/
-    ├── GestorTaller.java    # Clase principal (570+ líneas)
-    ├── Cliente.java         # Modelo de cliente con datos predefinidos
-    ├── Motocicleta.java     # Modelo de motocicleta con datos predefinidos
-    ├── Servicio.java        # Modelo de servicio con datos predefinidos
-    ├── Tecnico.java         # Modelo de técnico con datos predefinidos
-    └── Ordenes.java         # Modelo de orden de trabajo
+    ├── GestorTaller.java        # Clase principal (600+ líneas)
+    │
+    ├── Persona.java             # 🆕 Clase abstracta base para personas
+    ├── Cliente.java             # ⬆️ Hereda de Persona
+    ├── Tecnico.java             # ⬆️ Hereda de Persona
+    │
+    ├── Vehiculo.java            # 🆕 Clase abstracta base para vehículos
+    ├── Motocicleta.java         # ⬆️ Hereda de Vehiculo
+    │
+    ├── ServicioBase.java        # 🆕 Clase abstracta base para servicios
+    ├── Servicio.java            # ⬆️ Hereda de ServicioBase
+    ├── ServicioMantenimiento.java # ⬆️ Hereda de Servicio
+    │
+    ├── PersonaFactory.java      # 🆕 Factory Pattern para personas
+    ├── MotocicletaBuilder.java  # 🆕 Builder Pattern para motocicletas
+    ├── ConfiguracionSingleton.java # 🆕 Singleton Pattern
+    ├── OrdenesPool.java         # 🆕 Object Pool Pattern
+    │
+    └── Ordenes.java             # Modelo de orden de trabajo
 ```
 
 ## 🛠️ Cómo Ejecutar
@@ -70,44 +126,8 @@ ant compile
 ant clean
 ```
 
-## 📋 Funcionalidades
+## 🎯 Menú Principal Completo
 
-### Gestión de Órdenes
-- ✅ Crear nuevas órdenes de trabajo
-- ✅ Visualizar todas las órdenes en tabla formatada
-- ✅ Buscar órdenes por número
-- ✅ Marcar órdenes como completadas
-- ✅ Persistencia automática en archivo
-
-### Gestión de Entidades
-- ✅ **Clientes**: Administrar información de contacto
-- ✅ **Motocicletas**: Gestionar vehículos (modelo, marca, placa, etc.)
-- ✅ **Servicios**: Catálogo de servicios con precios y garantías
-- ✅ **Técnicos**: Personal especializado por área
-- ✅ Visualización en tablas formatadas para cada entidad
-
-### Características del Sistema
-- 🎨 Interfaz de consola con emojis y formato visual
-- 📅 Manejo de fechas con validación (formato dd/MM/yyyy)
-- 🔒 Validación de entrada de datos
-- 💾 Persistencia en archivo de texto
-- 🚀 Datos predefinidos listos para usar
-
-## 📊 Datos Predefinidos Incluidos
-
-### Clientes (5)
-- Juan Pérez, María García, Carlos López, Ana Martínez, Luis Rodríguez
-
-### Motocicletas (5)
-- Yamaha MT-07, Honda CBR600RR, Kawasaki Ninja 400, KTM Duke 390, Yamaha R15 V4
-
-### Servicios (5)
-- Cambio de aceite ($45,000), Revisión de frenos ($85,000), Ajuste de cadena ($25,000), Cambio de llantas ($180,000), Lavado completo ($15,000)
-
-### Técnicos (5)
-- Pedro Ramírez (Motor), Sandra Torres (Frenos), Miguel Vargas (Electricidad), Laura Jiménez (Transmisión), Roberto Castro (Suspensión)
-
-## 🎯 Menú Principal
 ```
 --- 🛠️ GESTIÓN DE ÓRDENES DE TALLER ---
 1. Agregar orden
@@ -119,29 +139,143 @@ ant clean
 7. Visualizar técnicos
 8. Visualizar motocicletas
 9. Visualizar servicios
+10. 🆕 Demostrar Herencia y Polimorfismo
+11. 🆕 Demostrar Instanciación POO
 0. Salir
 ```
 
+## 📋 Funcionalidades Principales
+
+### **Gestión de Órdenes**
+- ✅ Crear nuevas órdenes de trabajo
+- ✅ Visualizar todas las órdenes en tabla formatada
+- ✅ Buscar órdenes por número
+- ✅ Marcar órdenes como completadas
+- ✅ Persistencia automática en archivo
+
+### **Gestión de Entidades con Herencia**
+- ✅ **Personas**: Clientes y Técnicos con comportamiento especializado
+- ✅ **Vehículos**: Motocicletas con cálculos dinámicos
+- ✅ **Servicios**: Múltiples tipos con precios y descuentos automáticos
+- ✅ Visualización polimórfica en tablas formatadas
+
+### **Creación Avanzada de Objetos**
+- ✅ **Factory**: Creación centralizada con validaciones
+- ✅ **Builder**: Construcción fluida de motocicletas complejas
+- ✅ **Singleton**: Configuración global thread-safe
+- ✅ **Object Pool**: Reutilización eficiente de órdenes
+
+### **Características del Sistema**
+- 🎨 Interfaz de consola con emojis y formato visual
+- 📅 Manejo de fechas con validación (formato dd/MM/yyyy)
+- 🔒 Validación de entrada de datos
+- 💾 Persistencia en archivo de texto
+- 🚀 Datos predefinidos listos para usar
+- 📊 Estadísticas automáticas de todos los patrones
+
+## 🎭 Demostraciones Interactivas
+
+### **Opción 10: Herencia y Polimorfismo**
+```
+🎯 === DEMOSTRACIÓN DE HERENCIA Y POLIMORFISMO ===
+
+👥 POLIMORFISMO CON PERSONAS:
+🔹 Cliente: Nombre: Juan Pérez... - Email: juan@email.com
+🔹 Técnico: Nombre: Pedro Ramírez... - Especialidad: Motor
+   💼 Tarifa por hora: $23000
+   📊 Nivel: Senior
+
+🏍️ POLIMORFISMO CON VEHÍCULOS:
+🔹 Motocicleta Deportiva: Yamaha MT-07 2020 - Azul
+   💰 Costo mantenimiento: $95068
+   📋 Licencia requerida: A
+```
+
+### **Opción 11: Instanciación POO**
+```
+🏭 === DEMOSTRACIÓN DE INSTANCIACIÓN POO ===
+
+🏭 1. FACTORY PATTERN - Creación Centralizada
+🏭 Factory: Creando Cliente #1 - Ana Silva
+✅ Cliente creado exitosamente
+
+🔧 2. BUILDER PATTERN - Construcción Fluida
+🔧 Builder: Iniciando construcción de Honda CBF190R
+✅ Motocicleta construida paso a paso
+
+🎯 3. SINGLETON PATTERN - Instancia Única
+✅ Misma instancia: true
+💰 Precio hora base: $15000
+
+🏊 4. OBJECT POOL PATTERN - Reutilización
+📊 Eficiencia de reutilización: 100.0%
+```
+
+## 📊 Datos Predefinidos Incluidos
+
+### **Personas (Herencia)**
+- **5 Clientes**: Juan Pérez, María García, Carlos López, Ana Martínez, Luis Rodríguez
+- **5 Técnicos**: Pedro Ramírez (Motor), Sandra Torres (Frenos), Miguel Vargas (Electricidad), etc.
+
+### **Vehículos (Herencia)**
+- **5 Motocicletas**: Yamaha MT-07, Honda CBR600RR, Kawasaki Ninja 400, KTM Duke 390, Yamaha R15
+
+### **Servicios (Herencia)**
+- **5 Servicios**: Cambio de aceite, Revisión de frenos, Ajuste de cadena, Cambio de llantas, Lavado
+
 ## 🔧 Estado del Proyecto
 
-| Aspecto | Estado | Comentarios |
-|---------|--------|-------------|
-| Compilación | ✅ Sin errores | 40 errores corregidos |
-| Funcionalidad | ✅ Completa | Todas las características operativas |
-| Datos de Prueba | ✅ Incluidos | 25 registros predefinidos |
-| Interfaz | ✅ Funcional | Consola con formato visual |
-| Persistencia | ✅ Operativa | Guardado/carga desde archivo |
+| Aspecto | Estado | Detalles |
+|---------|--------|----------|
+| **Compilación** | ✅ Sin errores | Todas las clases compilando correctamente |
+| **Herencia** | ✅ Completa | 3 jerarquías con polimorfismo funcional |
+| **Instanciación** | ✅ Completa | 4 patrones implementados y funcionando |
+| **Funcionalidad** | ✅ 100% Operativa | 11 opciones del menú funcionando |
+| **Documentación** | ✅ Completa | README + 2 documentos especializados |
+| **Persistencia** | ✅ Operativa | Guardado/carga desde archivo |
+
+## 📚 Documentación Especializada
+
+- **[HERENCIA_POO.md](HERENCIA_POO.md)** - Documentación completa de Herencia y Polimorfismo
+- **[INSTANCIACION_POO.md](INSTANCIACION_POO.md)** - Documentación detallada de Patrones de Instanciación
+
+## 🎓 Conceptos POO Demostrados
+
+### **Herencia**
+- ✅ Clases abstractas (`abstract`)
+- ✅ Herencia (`extends`)
+- ✅ Métodos abstractos obligatorios
+- ✅ Sobrescritura (`@Override`)
+- ✅ Atributos protegidos (`protected`)
+- ✅ Constructores con `super()`
+
+### **Polimorfismo**
+- ✅ Mismo método, comportamiento diferente
+- ✅ Casting e `instanceof`
+- ✅ Polimorfismo en arrays/listas
+- ✅ Binding dinámico en tiempo de ejecución
+
+### **Instanciación**
+- ✅ Factory Pattern con validaciones
+- ✅ Builder Pattern fluido
+- ✅ Singleton thread-safe
+- ✅ Object Pool eficiente
 
 ## 💡 Próximas Mejoras Sugeridas
 1. **Base de Datos**: Migrar a SQLite o PostgreSQL
 2. **Interfaz Gráfica**: Implementar GUI con JavaFX
-3. **Validaciones Avanzadas**: Email, formato de placa, etc.
-4. **Reportes**: Generar PDF con estadísticas
-5. **API REST**: Crear servicios web
-6. **Testing**: Implementar pruebas unitarias con JUnit
+3. **API REST**: Crear servicios web
+4. **Testing**: Implementar pruebas unitarias con JUnit
+5. **Microservicios**: Dividir en módulos independientes
 
 ## 📄 Licencia
-Proyecto educativo - Uso libre para aprendizaje
+Proyecto educativo - Uso libre para aprendizaje de POO
 
-## 👨‍💻 Desarrollador
-Proyecto corregido y mejorado con correcciones integrales de errores de compilación y mejoras funcionales.
+## 👨‍💻 Desarrollo
+Proyecto desarrollado como ejemplo completo de **Programación Orientada a Objetos** en Java, implementando:
+- **Herencia** y **Polimorfismo** completos
+- **4 Patrones de Instanciación** esenciales
+- **Demostraciones interactivas** de todos los conceptos
+- **Código completamente funcional** y documentado
+
+**¡El GestorTaller es un ejemplo integral de POO avanzada en Java!** 🚀✨

@@ -39,6 +39,7 @@ public class GestorTaller {
                 case 8 -> mostrarMotocicletas();
                 case 9 -> mostrarServicios();
                 case 10 -> demostrarHerenciaPolimorfismo();
+                case 11 -> demostrarInstanciacionPOO();
                 case 0 -> System.out.println("🚪 Saliendo del sistema...");
                 default -> System.out.println("❌ Opción inválida.");
             }
@@ -70,6 +71,7 @@ public class GestorTaller {
         System.out.println("8. Visualizar motocicletas");
         System.out.println("9. Visualizar servicios");
         System.out.println("10. Demostrar Herencia y Polimorfismo");
+        System.out.println("11. Demostrar Instanciación POO");
         System.out.println("0. Salir");
     }
 
@@ -636,6 +638,171 @@ public class GestorTaller {
         System.out.println("   • Sobrescritura de métodos (@Override)");
         System.out.println("   • Casting y instanceof");
         System.out.println("   • Métodos abstractos y concretos");
+    }
+
+    private static void demostrarInstanciacionPOO() {
+        System.out.println("\n🏭 === DEMOSTRACIÓN DE INSTANCIACIÓN POO ===");
+        
+        // 1. FACTORY PATTERN
+        System.out.println("\n🏭 1. FACTORY PATTERN - Creación Centralizada de Objetos");
+        
+        try {
+            // Crear personas usando Factory
+            System.out.println("\n📝 Creando personas con Factory Pattern:");
+            Persona cliente1 = PersonaFactory.crearPersona(
+                PersonaFactory.TipoPersona.CLIENTE, 
+                "Ana Silva", "3001234567", "12345678",
+                "Calle 123", "ana@email.com"
+            );
+            
+            Persona tecnico1 = PersonaFactory.crearPersona(
+                PersonaFactory.TipoPersona.TECNICO,
+                "Carlos Méndez", "3009876543", "87654321",
+                "Suspensión", 6
+            );
+            
+            System.out.println("✅ Cliente creado: " + cliente1.toString());
+            System.out.println("✅ Técnico creado: " + tecnico1.toString());
+            
+            // Crear lote de personas
+            System.out.println("\n📦 Creando lote de personas:");
+            java.util.List<Persona> loteClientes = PersonaFactory.crearLotePersonas(
+                PersonaFactory.TipoPersona.CLIENTE, 3
+            );
+            loteClientes.forEach(p -> System.out.println("   • " + p.getNombre()));
+            
+            // Mostrar estadísticas del Factory
+            PersonaFactory.mostrarEstadisticas();
+            
+        } catch (Exception e) {
+            System.out.println("❌ Error en Factory: " + e.getMessage());
+        }
+        
+        // 2. BUILDER PATTERN
+        System.out.println("\n🔧 2. BUILDER PATTERN - Construcción Fluida de Objetos");
+        
+        try {
+            // Construcción fluida de motocicleta
+            System.out.println("\n🏍️ Construyendo motocicleta con Builder Pattern:");
+            Motocicleta motoBuilder1 = MotocicletaBuilder
+                .crear("Honda", "CBF190R")
+                .conColor("Rojo")
+                .conPlaca("ABC123")
+                .delAnio(2023)
+                .conCilindraje(184)
+                .configuracionUrbana()
+                .construir();
+            
+            System.out.println("✅ Motocicleta 1: " + motoBuilder1.getEspecificacionesTecnicas());
+            
+            // Construcción con configuración deportiva
+            System.out.println("\n🏁 Construyendo motocicleta deportiva:");
+            Motocicleta motoBuilder2 = MotocicletaBuilder
+                .crear("Kawasaki", "ZX-6R")
+                .conColor("Verde")
+                .conPlaca("DEF456")
+                .delAnio(2024)
+                .configuracionDeportiva()
+                .construir();
+            
+            System.out.println("✅ Motocicleta 2: " + motoBuilder2.getEspecificacionesTecnicas());
+            
+            // Builder con copia
+            System.out.println("\n📋 Copiando configuración:");
+            Motocicleta motoCopia = MotocicletaBuilder
+                .copiarDe(motoBuilder1)
+                .conColor("Azul")
+                .construir();
+            
+            System.out.println("✅ Motocicleta copia: " + motoCopia.getEspecificacionesTecnicas());
+            
+        } catch (Exception e) {
+            System.out.println("❌ Error en Builder: " + e.getMessage());
+        }
+        
+        // 3. SINGLETON PATTERN
+        System.out.println("\n🎯 3. SINGLETON PATTERN - Instancia Única Global");
+        
+        try {
+            // Acceso al Singleton
+            System.out.println("\n⚙️ Accediendo al Singleton de Configuración:");
+            ConfiguracionSingleton config1 = ConfiguracionSingleton.getInstance();
+            ConfiguracionSingleton config2 = ConfiguracionSingleton.getInstance();
+            ConfiguracionSingleton config3 = ConfiguracionSingleton.getInstance();
+            
+            // Verificar que es la misma instancia
+            boolean mismaInstancia = (config1 == config2) && (config2 == config3);
+            System.out.println("✅ Misma instancia: " + mismaInstancia);
+            
+            // Usar configuración
+            System.out.println("💰 Precio hora base: $" + config1.getPrecioHoraBase());
+            System.out.println("📱 Mostrar emojis: " + config1.isMostrarEmojis());
+            
+            // Modificar configuración
+            config1.establecerPropiedad("test.prop", "valor_demo");
+            System.out.println("🔧 Propiedad test desde config2: " + config2.obtenerPropiedad("test.prop"));
+            
+            // Estadísticas del Singleton
+            config1.mostrarEstadisticas();
+            
+        } catch (Exception e) {
+            System.out.println("❌ Error en Singleton: " + e.getMessage());
+        }
+        
+        // 4. OBJECT POOL PATTERN
+        System.out.println("\n🏊 4. OBJECT POOL PATTERN - Reutilización de Objetos");
+        
+        try {
+            // Obtener pool de órdenes
+            System.out.println("\n📦 Trabajando con Object Pool:");
+            OrdenesPool pool = OrdenesPool.getInstance(5);
+            
+            // Obtener órdenes del pool
+            System.out.println("🔄 Obteniendo órdenes del pool:");
+            Ordenes orden1 = pool.obtenerOrden();
+            Ordenes orden2 = pool.obtenerOrden();
+            Ordenes orden3 = pool.obtenerOrden();
+            
+            // Mostrar estado del pool
+            System.out.println("📊 Estado del pool: " + pool.obtenerInfo());
+            
+            // Devolver algunas órdenes
+            System.out.println("\n↩️ Devolviendo órdenes al pool:");
+            pool.devolverOrden(orden1);
+            pool.devolverOrden(orden2);
+            
+            // Obtener nuevamente (debería reutilizar)
+            System.out.println("\n♻️ Obteniendo órdenes nuevamente:");
+            Ordenes ordenReutilizada1 = pool.obtenerOrden();
+            Ordenes ordenReutilizada2 = pool.obtenerOrden();
+            
+            // Estadísticas finales del pool
+            pool.mostrarEstadisticas();
+            
+        } catch (Exception e) {
+            System.out.println("❌ Error en Object Pool: " + e.getMessage());
+        }
+        
+        // 5. COMPARACIÓN DE PATRONES
+        System.out.println("\n🆚 5. COMPARACIÓN DE PATRONES DE INSTANCIACIÓN");
+        
+        System.out.println("┌─────────────────┬─────────────────────────────────────────┐");
+        System.out.println("│ Patrón          │ Casos de Uso                            │");
+        System.out.println("├─────────────────┼─────────────────────────────────────────┤");
+        System.out.println("│ Factory         │ Creación centralizada, validaciones     │");
+        System.out.println("│ Builder         │ Objetos complejos, configuración fluida │");
+        System.out.println("│ Singleton       │ Configuración global, recursos únicos   │");
+        System.out.println("│ Object Pool     │ Objetos costosos, alta concurrencia     │");
+        System.out.println("└─────────────────┴─────────────────────────────────────────┘");
+        
+        System.out.println("\n✨ === INSTANCIACIÓN POO IMPLEMENTADA EXITOSAMENTE ===");
+        System.out.println("📚 Conceptos demostrados:");
+        System.out.println("   • Factory Pattern - Creación centralizada y validada");
+        System.out.println("   • Builder Pattern - Construcción fluida paso a paso");
+        System.out.println("   • Singleton Pattern - Instancia única thread-safe");
+        System.out.println("   • Object Pool Pattern - Reutilización eficiente");
+        System.out.println("   • Validaciones y manejo de errores");
+        System.out.println("   • Estadísticas y monitoreo de patrones");
     }
 
     // Métodos auxiliares

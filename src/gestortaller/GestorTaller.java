@@ -38,6 +38,7 @@ public class GestorTaller {
                 case 7 -> mostrarTecnicos();
                 case 8 -> mostrarMotocicletas();
                 case 9 -> mostrarServicios();
+                case 10 -> demostrarHerenciaPolimorfismo();
                 case 0 -> System.out.println("🚪 Saliendo del sistema...");
                 default -> System.out.println("❌ Opción inválida.");
             }
@@ -68,6 +69,7 @@ public class GestorTaller {
         System.out.println("7. Visualizar técnicos");
         System.out.println("8. Visualizar motocicletas");
         System.out.println("9. Visualizar servicios");
+        System.out.println("10. Demostrar Herencia y Polimorfismo");
         System.out.println("0. Salir");
     }
 
@@ -566,6 +568,74 @@ public class GestorTaller {
             tecnicosNuevos.add(Tecnico.TECNICO4);
             tecnicosNuevos.add(Tecnico.TECNICO5);
         }
+    }
+
+    private static void demostrarHerenciaPolimorfismo() {
+        System.out.println("\n🎯 === DEMOSTRACIÓN DE HERENCIA Y POLIMORFISMO ===");
+        
+        // Demostración de herencia en Personas
+        System.out.println("\n👥 POLIMORFISMO CON PERSONAS:");
+        Persona[] personas = {
+            Cliente.CLIENTE1,
+            Tecnico.TECNICO1,
+            Cliente.CLIENTE2,
+            Tecnico.TECNICO2
+        };
+        
+        for (Persona persona : personas) {
+            System.out.println("🔹 " + persona.getTipoPersona() + ": " + persona.toString());
+            if (persona instanceof Tecnico) {
+                Tecnico tec = (Tecnico) persona;
+                System.out.println("   💼 Tarifa por hora: $" + (int)tec.calcularTarifaHora());
+                System.out.println("   📊 Nivel: " + tec.getNivelExperiencia());
+            } else if (persona instanceof Cliente) {
+                Cliente cli = (Cliente) persona;
+                System.out.println("   📧 Email válido: " + (cli.tieneEmailValido() ? "Sí" : "No"));
+            }
+        }
+        
+        // Demostración de herencia en Vehículos
+        System.out.println("\n🏍️ POLIMORFISMO CON VEHÍCULOS:");
+        Vehiculo[] vehiculos = {
+            Motocicleta.MOTO1,
+            Motocicleta.MOTO2,
+            Motocicleta.MOTO3
+        };
+        
+        for (Vehiculo vehiculo : vehiculos) {
+            System.out.println("🔹 " + vehiculo.getTipoVehiculo() + ": " + vehiculo.getInformacionBasica());
+            System.out.println("   💰 Costo mantenimiento: $" + (int)vehiculo.calcularCostoMantenimiento());
+            System.out.println("   📅 Antigüedad: " + vehiculo.calcularAntiguedad() + " años");
+            if (vehiculo instanceof Motocicleta) {
+                Motocicleta moto = (Motocicleta) vehiculo;
+                System.out.println("   📋 Licencia requerida: " + moto.getCategoriaLicencia());
+                System.out.println("   ⚙️ Mantenimiento especial: " + (moto.requiereMantenimientoEspecial() ? "Sí" : "No"));
+            }
+        }
+        
+        // Demostración de herencia en Servicios
+        System.out.println("\n🔧 POLIMORFISMO CON SERVICIOS:");
+        ServicioBase[] servicios = {
+            Servicio.SERVICIO1,
+            Servicio.SERVICIO2,
+            new ServicioMantenimiento("Cambio de filtro", 35000, 25, "30 días", 5000, true)
+        };
+        
+        for (ServicioBase servicio : servicios) {
+            System.out.println("🔹 " + servicio.toString());
+            System.out.println("   🛠️ Materiales: " + servicio.getMaterialesNecesarios());
+            System.out.println("   💵 Con 10% descuento: $" + (int)servicio.calcularPrecioConDescuento(10));
+            System.out.println("   ⚡ Servicio rápido: " + (servicio.esServicioRapido() ? "Sí" : "No"));
+        }
+        
+        System.out.println("\n✨ === HERENCIA IMPLEMENTADA EXITOSAMENTE ===");
+        System.out.println("📚 Conceptos demostrados:");
+        System.out.println("   • Clases abstractas (Persona, Vehiculo, ServicioBase)");
+        System.out.println("   • Herencia (Cliente/Tecnico <- Persona)");
+        System.out.println("   • Polimorfismo (mismo método, comportamiento diferente)");
+        System.out.println("   • Sobrescritura de métodos (@Override)");
+        System.out.println("   • Casting y instanceof");
+        System.out.println("   • Métodos abstractos y concretos");
     }
 
     // Métodos auxiliares

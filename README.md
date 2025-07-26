@@ -3,19 +3,6 @@
 ## Descripción
 Sistema de gestión de órdenes de trabajo para talleres de reparación de motocicletas. Permite administrar clientes, técnicos, motocicletas, servicios y órdenes de trabajo de manera integral.
 
-## ✅ Correcciones Aplicadas
-
-### 🚨 Errores Críticos Corregidos
-1. **Constantes Faltantes**: Se agregaron 40 constantes estáticas que faltaban:
-   - 5 clientes predefinidos (`Cliente.CLIENTE1` - `Cliente.CLIENTE5`)
-   - 5 motocicletas predefinidas (`Motocicleta.MOTO1` - `Motocicleta.MOTO5`)
-   - 5 servicios predefinidos (`Servicio.SERVICIO1` - `Servicio.SERVICIO5`)
-   - 5 técnicos predefinidos (`Tecnico.TECNICO1` - `Tecnico.TECNICO5`)
-
-2. **Bug en Entrada de Datos**: Corregido el método `crearNuevoServicio()` que leía el precio dos veces.
-
-3. **Inicialización de Datos**: Se agregó inicialización automática de datos predefinidos al iniciar el sistema.
-
 ### 🚀 Mejoras Implementadas
 1. **Pantalla de Bienvenida**: Mensaje visual atractivo al iniciar la aplicación
 2. **Datos de Ejemplo**: 25 registros predefinidos listos para usar
